@@ -1,0 +1,9 @@
+server:
+  port: ${SERVER_PORT:8090}
+
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: optional:configserver:http://localhost:8071/
+

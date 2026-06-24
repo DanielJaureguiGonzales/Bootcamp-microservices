@@ -1,0 +1,206 @@
+services:
+  # 1. Base de datos MongoDB
+  mongodb:
+    image: mongo:7.0.4
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+    healthcheck:
+      test: [ "CMD-SHELL", "mongosh --quiet --username root --password pass --authenticationDatabase admin --eval \"db.adminCommand('ping').ok\" | grep 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - bank-network
+  # 2. Config Server
+  config-server:
+    build:
+      context: ../config-server
+      dockerfile: Dockerfile
+    container_name: config-server
+    ports:
+      - "8071:8071"
+    environment:
+      SERVER_PORT: 8071
+    healthcheck:
+      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      retries: 10
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - bank-network
+  # 3. Eureka Server
+  eureka-server:
+    build:
+      context: ../eureka-server
+      dockerfile: Dockerfile
+    container_name: eureka-server
+    ports:
+      - "8070:8070"
+    environment:
+      SERVER_PORT: 8070
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      retries: 10
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+    networks:
+      - bank-network
+    depends_on:
+      config-server:
+        condition: service_healthy
+
+  # 4. Customer Service
+  customer-service:
+    build:
+      context: ../customer-service
+      dockerfile: Dockerfile
+    container_name: customer-service
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      CUSTOMER_SERVICE_DB_HOST: mongodb
+      CUSTOMER_SERVICE_DB_PORT: 27017
+      CUSTOMER_SERVICE_DB: customerdb
+      CUSTOMER_SERVICE_DB_USER: root
+      CUSTOMER_SERVICE_DB_PASS: pass
+      CUSTOMER_SERVICE_ADMIN_DB: admin
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8070/eureka/
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8071/
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      retries: 10
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    networks:
+      - bank-network
+
+  # 5. Account Service
+  account-service:
+    build:
+      context: ../account-service
+      dockerfile: Dockerfile
+    container_name: account-service
+    ports:
+      - "8081:8081"
+    environment:
+      SERVER_PORT: 8081
+      ACCOUNT_SERVICE_DB_HOST: mongodb
+      ACCOUNT_SERVICE_DB_PORT: 27017
+      ACCOUNT_SERVICE_DB: accountdb
+      ACCOUNT_SERVICE_DB_USER: root
+      ACCOUNT_SERVICE_DB_PASS: pass
+      ACCOUNT_SERVICE_ADMIN_DB: admin
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8070/eureka/
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8071/
+    healthcheck:
+      test: "curl --fail --silent localhost:8081/actuator/health/readiness | grep UP || exit 1"
+      retries: 10
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      customer-service:
+        condition: service_healthy
+    networks:
+      - bank-network
+
+  # 6. Credit Service
+  credit-service:
+    build:
+      context: ../credit-service
+      dockerfile: Dockerfile
+    container_name: credit-service
+    ports:
+      - "8082:8082"
+    environment:
+      SERVER_PORT: 8082
+      CREDIT_SERVICE_DB_HOST: mongodb
+      CREDIT_SERVICE_DB_PORT: 27017
+      CREDIT_SERVICE_DB: creditdb
+      CREDIT_SERVICE_DB_USER: root
+      CREDIT_SERVICE_DB_PASS: pass
+      CREDIT_SERVICE_ADMIN_DB: admin
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8070/eureka/
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8071/
+    healthcheck:
+      test: "curl --fail --silent localhost:8082/actuator/health/readiness | grep UP || exit 1"
+      retries: 10
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      customer-service:
+        condition: service_healthy
+    networks:
+      - bank-network
+  api-gateway:
+    build:
+      context: ../api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    healthcheck:
+      test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
+      retries: 10
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_APPLICATION_NAME: api-gateway
+      SERVER_PORT: 8090
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8070/eureka/
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8071/
+    depends_on:
+      account-service:
+        condition: service_healthy
+      customer-service:
+        condition: service_healthy
+      credit-service:
+        condition: service_healthy
+    networks:
+      - bank-network
+#      eureka-server:
+#        condition: service_healthy
+#      config-server:
+#        condition: service_healthy
+
+volumes:
+  mongo_data:
+
+networks:
+  bank-network:
+    driver: bridge
