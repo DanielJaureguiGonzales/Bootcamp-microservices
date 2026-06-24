@@ -1,0 +1,450 @@
+{
+  "info": {
+    "name": "API Gateway",
+    "description": null,
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "customer",
+      "item": [
+        {
+          "name": "FindAll",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/customer",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "customer"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/customer",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "customer"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\" : \"01\",\n  \"documentNumber\": \"74551242\",\n  \"firstName\": \"Lidia\",\n  \"lastName\": \"Lapa Jauregui\",\n  \"email\": \"lidia@gmail.com\",\n  \"phone\": \"944215321\",\n  \"address\": \"Jr. Pacaritambo 141\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "findByDocumentNumber",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/customer/documentNumber/75692454",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "customer",
+                "documentNumber",
+                "75692454"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "findById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/customer/6a30e2c2e5a2b95aaf77d34e",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "customer",
+                "6a30e2c2e5a2b95aaf77d34e"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/customer/6a30e0e2988a588099c1066e",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "customer",
+                "6a30e0e2988a588099c1066e"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentNumber\": \"75692454\",\n  \"firstName\": \"Jose\",\n  \"lastName\": \"Jauregui Gonzales\",\n  \"email\": \"dank_lp123@outlook.com\",\n  \"phone\": \"944970153\",\n  \"address\": \"Jr. Pacaritambo 141 2da zona Tahuantinsuyo\",\n  \"customerType\": \"PERSONAL\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/customer/6a30e0e2988a588099c1066e",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "customer",
+                "6a30e0e2988a588099c1066e"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "account",
+      "item": [
+        {
+          "name": "Abrir Cuenta Bancaria",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/account",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "account"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountType\": \"03\",\n  \"documentType\": \"01\",\n  \"documentNumber\": \"75692454\",\n  \"initialAmount\": 1000.00,\n  \"flagFreeCommisionMant\": false,\n  \"maxMovMon\": 1,\n  \"initialDate\": \"21/06/2026\",\n  \"cantDays\": 30\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Abrir Cuenta Bancaria - business",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/account",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "account"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"accountType\": \"02\",\n  \"documentType\": \"02\",\n  \"documentNumber\": \"10461339561\",\n  \"initialAmount\": 50000.00,\n  \"flagFreeCommisionMant\": false,\n  \"maxMovMon\": 0,\n  \"participants\": [\n    {\n      \"documentType\" : \"01\",\n      \"documentNumber\": \"00108892\",\n      \"participantRole\": \"HOLDER\"\n         },\n    {\n      \"documentType\" : \"02\",\n      \"documentNumber\": \"10461339550\",\n      \"participantRole\": \"AUTHORIZED_SIGNER\"\n         }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Depositos y Retiros",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/account/operations?id=WITHDRAW",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "account",
+                "operations"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "WITHDRAW"
+                }
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"02\",\n  \"accountNumber\": \"6667055129827\",\n  \"documentNumber\": \"10461339561\",\n  \"amount\": 100.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "findByDocumentNumber",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/customer/documentNumber/74551242",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "customer",
+                "documentNumber",
+                "74551242"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "credit",
+      "item": [
+        {
+          "name": "Abrir Credito",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/credit",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "credit"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"01\",\n  \"documentNumber\": \"74551242\",\n  \"amount\" : \"3000\",\n  \"currencyType\" : \"01\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FindAll",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/credit/customer/6a3a24ecaca47fab89804d9e",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "credit",
+                "customer",
+                "6a3a24ecaca47fab89804d9e"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Generar consumo",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/credit/consumption",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "credit",
+                "consumption"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"01\",\n  \"documentNumber\": \"74551242\",\n  \"creditNumber\": \"2466926303735\",\n  \"amount\": 300,\n  \"merchantName\": \"Tienda ABC\",\n  \"description\": \"Compra con tarjeta de crédito\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Pagar credito",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8090/api/credit/payment",
+              "protocol": "http",
+              "host": [
+                "localhost:8090"
+              ],
+              "path": [
+                "api",
+                "credit",
+                "payment"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"01\",\n  \"documentNumber\": \"74551242\",\n  \"creditNumber\": \"2466926303735\",\n  \"amount\": 10.00,\n  \"paymentMethod\": \"CASH\",\n  \"description\": \"Pago de crédito\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": []
+}

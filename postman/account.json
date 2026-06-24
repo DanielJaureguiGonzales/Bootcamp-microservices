@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "account",
+    "description": null,
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Abrir Cuenta Bancaria",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:8081/api/account",
+          "protocol": "http",
+          "host": [
+            "localhost:8081"
+          ],
+          "path": [
+            "api",
+            "account"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"TipoCuentaBancaria\": 01,\n  \"FlagLibreComisionMant\": false,\n  \"MaxMovMensual\" : \"10\"\n},\n{\n  \"TipoCuentaBancaria\": 02,\n  \"FlagLibreComisionMant\": true,\n  \"MaxMovMensual\" : \"0\"\n},\n{\n  \"TipoCuentaBancaria\": 03,\n  \"FlagLibreComisionMant\": false,\n  \"MaxMovMensual\" : \"1\",\n  \"FechaInicio\" : \"21/06/2026\",\n  \"CantiDias\" : \"30\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Abrir Cuenta Bancaria - business",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:8081/api/account",
+          "protocol": "http",
+          "host": [
+            "localhost:8081"
+          ],
+          "path": [
+            "api",
+            "account"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"accountType\": \"02\",\n  \"documentType\": \"02\",\n  \"documentNumber\": \"10461339561\",\n  \"initialAmount\": 50000.00,\n  \"flagFreeCommisionMant\": false,\n  \"maxMovMon\": 0,\n  \"participants\": [\n    {\n      \"documentType\" : \"01\",\n      \"documentNumber\": \"00108892\",\n      \"participantRole\": \"HOLDER\"\n         },\n    {\n      \"documentType\" : \"02\",\n      \"documentNumber\": \"10461339550\",\n      \"participantRole\": \"AUTHORIZED_SIGNER\"\n         }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Depositos y Retiros",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:8081/api/account/operations?id=WITHDRAW",
+          "protocol": "http",
+          "host": [
+            "localhost:8081"
+          ],
+          "path": [
+            "api",
+            "account",
+            "operations"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "WITHDRAW"
+            }
+          ],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"documentType\": \"02\",\n  \"accountNumber\": \"6667055129827\",\n  \"documentNumber\": \"10461339561\",\n  \"amount\": 100.00\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "findByDocumentNumber",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:8080/api/customer/documentNumber/74551242",
+          "protocol": "http",
+          "host": [
+            "localhost:8080"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "documentNumber",
+            "74551242"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    }
+  ],
+  "variable": []
+}

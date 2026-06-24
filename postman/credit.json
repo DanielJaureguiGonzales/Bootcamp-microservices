@@ -1,0 +1,137 @@
+{
+  "info": {
+    "name": "credit",
+    "description": null,
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Abrir Credito",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:8082/api/credit",
+          "protocol": "http",
+          "host": [
+            "localhost:8082"
+          ],
+          "path": [
+            "api",
+            "credit"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"documentType\": \"01\",\n  \"documentNumber\": \"74551242\",\n  \"amount\" : \"3000\",\n  \"currencyType\" : \"01\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "FindAll",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:8082/api/credit/customer/6a3a24ecaca47fab89804d9e",
+          "protocol": "http",
+          "host": [
+            "localhost:8082"
+          ],
+          "path": [
+            "api",
+            "credit",
+            "customer",
+            "6a3a24ecaca47fab89804d9e"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Generar consumo",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:8082/api/credit/consumption",
+          "protocol": "http",
+          "host": [
+            "localhost:8082"
+          ],
+          "path": [
+            "api",
+            "credit",
+            "consumption"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"documentType\": \"01\",\n  \"documentNumber\": \"74551242\",\n  \"creditNumber\": \"2466926303735\",\n  \"amount\": 300,\n  \"merchantName\": \"Tienda ABC\",\n  \"description\": \"Compra con tarjeta de crédito\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Pagar credito",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:8082/api/credit/payment",
+          "protocol": "http",
+          "host": [
+            "localhost:8082"
+          ],
+          "path": [
+            "api",
+            "credit",
+            "payment"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"documentType\": \"01\",\n  \"documentNumber\": \"74551242\",\n  \"creditNumber\": \"2466926303735\",\n  \"amount\": 10.00,\n  \"paymentMethod\": \"CASH\",\n  \"description\": \"Pago de crédito\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "variable": []
+}
